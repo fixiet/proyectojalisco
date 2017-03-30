@@ -1,0 +1,498 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <![endif]-->
+    <title>Vista Ciudadano</title>
+    <!-- BOOTSTRAP CORE STYLE  -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONT AWESOME ICONS  -->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- CUSTOM STYLE  -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+     <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+     <meta charset="UTF-8">
+    <style type="text/css">
+    #mapa { height: 500px; }
+    </style>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript">
+    function initialize() {
+      var marcadores = [
+        ['León', 20.728, -103.439,],
+        ['Salamanca', 20.727, -103.430,'images/rojo.png'],
+        ['Zamora', 20.729, -103.455],
+		['León', 20.730, -103.439],
+        ['Salamanca', 20.731, -103.430],
+        ['Zamora', 20.735, -103.455]
+      ];
+	
+  
+
+	  
+	  var image = {
+		  url: 'images/verde.png',
+		  };
+		  
+		    
+	 
+		
+		  
+      var map = new google.maps.Map(document.getElementById('mapa'), {
+        zoom: 12,
+       <!-- center: new google.maps.LatLng(41.503, -5.744),-->
+		center: new google.maps.LatLng(20.7230684, -103.4338379),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      });
+     
+	  var infowindow = new google.maps.InfoWindow();
+	  
+      var marker, i;
+      for (i = 0; i < marcadores.length; i++) {  
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(marcadores[i][1], marcadores[i][2]),
+          map: map,
+		  icon: image
+        });
+		
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+	
+          return function() {
+            infowindow.setContent(marcadores[i][0]);
+            infowindow.open(map, marker);
+          }
+        })(marker, i));
+		
+		
+		 
+      }
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+   <!-- inicio nuevo mapa -->
+   
+    var mapa;
+function initialize() {
+		// las coordenadas de Barcelona		
+		var chinchetas = [
+		{title: "B", pin:"red-dot", lat:20.728, lng:-103.439},
+		{title: "F", pin:"green-dot", lat:20.727, lng:-103.430}, 
+		{title: "T", pin:"yellow-dot", lat:20.729, lng:-103.455},
+		{title: "B", pin:"red-dot", lat:20.730, lng:-103.440},
+		{title: "F", pin:"green-dot", lat:20.732, lng:-103.442}, 
+		{title: "T", pin:"blue-dot", lat:20.734, lng:-103.444},
+		{title: "B", pin:"red-dot", lat:20.738, lng:-103.439},
+		{title: "F", pin:"green-dot", lat:20.740, lng:-103.430}, 
+		{title: "T", pin:"yellow-dot", lat:20.642, lng:-103.455},
+		{title: "B", pin:"red-dot", lat:20.744, lng:-103.440},
+		{title: "F", pin:"green-dot", lat:20.748, lng:-103.442}, 
+		{title: "T", pin:"blue-dot", lat:20.750, lng:-103.444},
+		{title: "B", pin:"red-dot", lat:20.752, lng:-103.439},
+		{title: "F", pin:"green-dot", lat:20.754, lng:-103.430}, 
+		{title: "T", pin:"yellow-dot", lat:20.656, lng:-103.455},
+		{title: "B", pin:"red-dot", lat:20.758, lng:-103.440},
+		{title: "F", pin:"green-dot", lat:20.760, lng:-103.442}, 
+		{title: "T", pin:"blue-dot", lat:20.762, lng:-103.444},
+		{title: "B", pin:"red-dot", lat:20.652, lng:-103.239},
+		{title: "B", pin:"red-dot", lat:20.654, lng:-103.439},
+		{title: "B", pin:"red-dot", lat:20.656, lng:-103.439},
+		{title: "B", pin:"red-dot", lat:20.658, lng:-103.439},
+		{title: "B", pin:"red-dot", lat:20.652, lng:-103.249},
+		{title: "B", pin:"red-dot", lat:20.652, lng:-103.245},
+		{title: "B", pin:"red-dot", lat:20.652, lng:-103.244},
+		{title: "B", pin:"red-dot", lat:20.652, lng:-103.241},
+		{title: "B", pin:"rojo.png", lat:20.652, lng:-103.250},
+		
+		];
+		
+		var centroMapa = new google.maps.LatLng(20.7230684, -103.4338379);
+	
+		var opcionesDeMapa = {
+				zoom: 10,
+				center: centroMapa,
+				mapTypeId: google.maps.MapTypeId.ROADMAP //SATELITE, HYBRID, ROADMAP, TERRAIN
+		};
+		// instancia un nuevo objeto Map
+		mapa = new google.maps.Map(document.getElementById("mapa"), opcionesDeMapa);										
+		
+		var marcador, pin;
+		// la carpeta donde se encuentran los iconos de Google
+		var url = "http://maps.google.com/mapfiles/ms/micons/";
+		
+		for( var i = 0; i < chinchetas.length; i++){
+		// el icono utilizado 
+		pin = url + chinchetas[i].pin + ".png";
+		// nuevo marcador
+		marcador = new google.maps.Marker({
+				position: new google.maps.LatLng(chinchetas[i].lat, chinchetas[i].lng),
+				map: mapa,
+				title: chinchetas[i].title,
+				icon: pin
+		});		
+	}
+}// acaba la función initialize
+		// inicializa el mapa cuando la ventana se haya cargado:
+		google.maps.event.addDomListener(window, "load", initialize);
+
+    
+    
+    
+    
+    
+   
+   
+   
+   <!-- fin de nuevo mapa-->
+   
+   
+   
+   
+   
+   
+    </script>
+    
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12"></div>
+
+            </div>
+        </div>
+    </header>
+    <!-- HEADER END-->
+    <div class="navbar navbar-inverse set-radius-zero">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">
+
+                    <img src="assets/img/logo.png" style="width;width: 90px;" 90="" px;="">
+                </a>
+
+            </div>
+
+            <div class="left-div">
+                <div class="user-settings-wrapper">
+                    <ul class="nav">
+                    
+                     <div class="container">
+                       <div class="row">
+                         <div class="col-md-4">
+                           <!--<div class="navbar-collapse collapse ">
+                               <ul id="menu-top" class="nav navbar-nav navbar-right">-->
+                                 <li><h4 a class="menu-top-active" href="index.html">TABLERO DE CONTROL </a></li>
+                      
+                                
+
+                        <!--<li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                                <span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-settings">
+                                <div class="media">
+                                    <a class="media-left" href="#">
+                                        <img src="assets/img/64-64.jpg" alt="" class="img-rounded" />
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Jhon Deo Alex </h4>
+                                        <h5>Developer & Designer</h5>
+
+                                    </div>
+                                </div>
+                                <hr />
+                                <h5><strong>Personal Bio : </strong></h5>
+                                Anim pariatur cliche reprehen derit.
+                                <hr />
+                                <a href="#" class="btn btn-info btn-sm">Full Profile</a>&nbsp; <a href="login.html" class="btn btn-danger btn-sm">Logout</a>
+
+                            </div>-->
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- LOGO HEADER END-->
+    <section class="menu-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="navbar-collapse collapse ">
+                        <ul id="menu-top" class="nav navbar-nav navbar-right">
+                            <!--<li><a class="menu-top-active" href="index.html">Dashboard</a></li>
+                            <li><a href="ui.html">UI Elements</a></li>
+                            <li><a href="table.html">Data Tables</a></li>
+                            <li><a href="forms.html">Forms</a></li>
+                             <li><a href="login.html">Login Page</a></li>-->
+                            <li><a href="index_portada.html">Salir</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- MENU SECTION END-->
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="page-head-line">Bienvenido Usuario Ciudadano </h4>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-success">
+                        Consulta los principales indicadores del Estado de Jalisco </div>
+                </div>
+
+            </div>
+            <div class="row">
+                 <div class="col-md-3 col-sm-3 col-xs-6">
+                    <div class="dashboard-div-wrapper bk-clr-one">
+                        <i  class="fa fa-venus dashboard-div-icon" ></i>
+                        <div class="progress progress-striped active">
+  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+  </div>
+                           
+</div>
+                         <h5>Promedio de Peso en Mujeres </h5>
+                         <h5>38 K. </h5>
+                    </div>
+                </div>
+                 <div class="col-md-3 col-sm-3 col-xs-6">
+                    <div class="dashboard-div-wrapper bk-clr-two">
+                        <i  class="fa fa-edit dashboard-div-icon" ></i>
+                        <div class="progress progress-striped active">
+  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+  </div>
+                           
+</div>
+                         <h5>Estatura Promedio Mujeres </h5>
+                         <h5>1.60 M. </h5>
+                    </div>
+                </div>
+                 <div class="col-md-3 col-sm-3 col-xs-6">
+                    <div class="dashboard-div-wrapper bk-clr-three">
+                        <i  class="fa fa-cogs dashboard-div-icon" ></i>
+                        <div class="progress progress-striped active">
+  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+  </div>
+                           
+</div>
+                         <h5>Promedio de Peso en Hombres </h5>
+                         <h5>82 K. </h5>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-6">
+                    <div class="dashboard-div-wrapper bk-clr-four">
+                        <i  class="fa fa-edit dashboard-div-icon" ></i>
+                        <div class="progress progress-striped active">
+  <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+  </div>
+                           
+</div>
+                         <h5>Estatura Promedio Hombres </h5>
+                          <h5>1.86 M. </h5>
+                    </div>
+                </div>
+
+            </div>
+           
+            <div class="row">
+            
+              <div id="mapa"></div>
+              
+                <div class="col-md-6">
+                      <div class="notice-board">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                           Panel de Notificaciones
+                                <div class="pull-right" >
+                                    <div class="dropdown">
+  <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+    <span class="glyphicon glyphicon-cog"></span>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Refresh</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Logout</a></li>
+  </ul>
+</div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                               
+                                <ul >
+                                   
+                                     <li>
+                                            <a href="#">
+                                     <span class="glyphicon glyphicon-align-left text-success" ></span> 
+                                                  Lorem ipsum dolor sit amet ipsum dolor sit amet
+                                                 <span class="label label-warning" > Just now </span>
+                                            </a>
+                                    </li>
+                                     <li>
+                                          <a href="#">
+                                     <span class="glyphicon glyphicon-info-sign text-danger" ></span>  
+                                          Lorem ipsum dolor sit amet ipsum dolor sit amet
+                                          <span class="label label-info" > 2 min chat</span>
+                                            </a>
+                                    </li>
+                                     <li>
+                                          <a href="#">
+                                     <span class="glyphicon glyphicon-comment  text-warning" ></span>  
+                                          Lorem ipsum dolor sit amet ipsum dolor sit amet
+                                          <span class="label label-success" >GO ! </span>
+                                            </a>
+                                    </li>
+                                    <li>
+                                          <a href="#">
+                                     <span class="glyphicon glyphicon-edit  text-danger" ></span>  
+                                          Lorem ipsum dolor sit amet ipsum dolor sit amet
+                                          <span class="label label-success" >Let's have it </span>
+                                            </a>
+                                    </li>
+                                   </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel-footer"></div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="text-center alert alert-warning"></div>
+                     
+                    <hr />
+                     <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>referencia.</th>
+                                            <th>Fecha</th>
+                                            <th>Promedio IMC</th>
+                                            <th>Edad Promedio</th>
+                                            <th>PesoPromedio</th>
+                                            <th>Nutrición</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       
+                                        <tr>
+                                            <td># 2501</td>
+                                            <td>01/22/2015 </td>
+                                            <td>
+                                                <label class="label label-info">16 </label>
+                                            </td>
+                                            <td>
+                                                <label class="label label-success">15</label></td>
+                                            <td>24</td>
+                                             <td><a href="#"  class="btn btn-xs btn-danger"  >View</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td># 15091</td>
+                                            <td>12/12/2014 </td>
+                                            <td>
+                                                <label class="label label-danger">30</label>
+                                            </td>
+                                            <td>
+                                                <label class="label label-warning">40</label></td>
+                                            <td>45</td>
+                                             <td> <a href="#"  class="btn btn-xs btn-success"  >View</a> </td>
+                                        </tr>
+                                        <tr>
+                                            <td># 11291</td>
+                                            <td>12/03/2014 </td>
+                                            <td>
+                                                <label class="label label-warning">25 </label>
+                                            </td>
+                                            <td>
+                                                <label class="label label-success">12</label></td>
+                                            <td>22</td>
+                                             <td> <a href="#"  class="btn btn-xs btn-primary"  >View</a> </td>
+                                        </tr>
+                                        <tr>
+                                            <td># 1808</td>
+                                            <td>11/10/2014 </td>
+                                            <td>
+                                                <label class="label label-success">14</label>
+                                            </td>
+                                            <td>
+                                                <label class="label label-info">21</label></td>
+                                            <td>19</td>
+                                             <td> <a href="#"  class="btn btn-xs btn-danger"  >View</a> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="alert alert-danger">Se muestra en el mapa un incremento en el promedio de obecidad infantil en el Municipio de Guadalajara </div>
+                    <hr />
+                     <div class="Compose-Message">               
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        Formulario de Contacto
+                    </div>
+                    <div class="panel-body">
+                        
+                        <label>Nombre : </label>
+                        <input type="text" class="form-control" />
+                        <label>Asunto :  </label>
+                        <input type="text" class="form-control" />
+                        <label>Mensaje : </label>
+                        <textarea rows="9" class="form-control"></textarea>
+                        <hr />
+                        <a href="#" class="btn btn-warning"><span class="glyphicon glyphicon-envelope"></span> Eliminar</a>&nbsp;
+                      <a href="#" class="btn btn-success"><span class="glyphicon glyphicon-tags"></span> Enviar </a>
+                    </div>
+                    <div class="panel-footer text-muted">
+                        <strong>Note : </strong>Please note that we track all messages so don't send any spams.
+                    </div>
+                </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CONTENT-WRAPPER SECTION END-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    &copy; 2015 YourCompany | By : <a href="http://www.designbootstrap.com/" target="_blank">DesignBootstrap</a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <!-- FOOTER SECTION END-->
+    <!-- JAVASCRIPT AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
+    <!-- CORE JQUERY SCRIPTS -->
+    <script src="assets/js/jquery-1.11.1.js"></script>
+    <!-- BOOTSTRAP SCRIPTS  -->
+    <script src="assets/js/bootstrap.js"></script>
+</body>
+</html>
